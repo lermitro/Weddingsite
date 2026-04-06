@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L & S — Wedding 2026</title>
+    <!-- Fonts: Serif for Headings, Sans-serif for Body -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Sticky Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo" id="nav-names">L & S</a>
+            <div class="nav-links">
+                <a href="#timeline">Тайминг</a>
+                <a href="#dresscode">Дресс-код</a>
+                <a href="#rsvp">Анкета</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section-padding">
+        <div class="container hero-grid">
+            <div class="hero-image-wrapper reveal">
+                <img id="hero-img" src="" alt="Wedding Couple">
+            </div>
+            <div class="hero-text reveal">
+                <h1 id="hero-title"></h1>
+                <p class="hero-date" id="hero-date"></p>
+                <div class="hero-scroll-hint">Scroll to explore</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timer Section -->
+    <section id="timer" class="timer section-padding">
+        <div class="container">
+            <h2 class="section-title reveal">До встречи осталось</h2>
+            <div class="timer-grid reveal">
+                <div class="timer-item"><span id="days">00</span><label>Дней</label></div>
+                <div class="timer-item"><span id="hours">00</span><label>Часов</label></div>
+                <div class="timer-item"><span id="minutes">00</span><label>Минут</label></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section id="timeline" class="timeline section-padding">
+        <div class="container">
+            <h2 class="section-title reveal" id="timeline-title"></h2>
+            <div id="timeline-content" class="timeline-list">
+                <!-- Injected via script -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Dress Code Section -->
+    <section id="dresscode" class="dresscode section-padding">
+        <div class="container">
+            <h2 class="section-title reveal" id="dresscode-title"></h2>
+            <p class="section-desc reveal" id="dresscode-desc"></p>
+            <div id="dresscode-colors" class="color-palette reveal">
+                <!-- Injected via script -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Details Section -->
+    <section id="details" class="details section-padding">
+        <div class="container">
+            <h2 class="section-title reveal" id="details-title"></h2>
+            <div id="details-grid" class="details-grid">
+                <!-- Injected via script -->
+            </div>
+        </div>
+    </section>
+
+    <!-- RSVP Section -->
+    <section id="rsvp" class="rsvp section-padding">
+        <div class="container">
+            <div class="rsvp-card reveal">
+                <h2 class="section-title" id="rsvp-title"></h2>
+                <form id="rsvp-form" class="rsvp-form">
+                    <div class="form-group">
+                        <label>Ваше Имя</label>
+                        <input type="text" name="name" placeholder="Имя и Фамилия" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Придете ли вы?</label>
+                        <div class="radio-group">
+                            <label class="radio-btn"><input type="radio" name="presence" value="Да" required> <span>Да, с удовольствием</span></label>
+                            <label class="radio-btn"><input type="radio" name="presence" value="Нет"> <span>К сожалению, не смогу</span></label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Предпочтения по напиткам</label>
+                        <div class="checkbox-grid" id="drinks-options">
+                            <!-- Injected -->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Аллергии или пожелания по еде</label>
+                        <textarea name="food" rows="2" placeholder="Например: не ем рыбу"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Будете ли вы на втором дне?</label>
+                        <div class="radio-group">
+                            <label class="radio-btn"><input type="radio" name="second_day" value="Да"> <span>Да</span></label>
+                            <label class="radio-btn"><input type="radio" name="second_day" value="Нет"> <span>Нет</span></label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit-btn">Отправить ответ</button>
+                </form>
+                <div id="form-success" class="form-success hidden">
+                    <p>Спасибо! Ваш ответ отправлен.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Section -->
+    <footer class="final section-padding">
+        <div class="container text-center reveal">
+            <h2 id="final-text" class="final-title"></h2>
+            <div class="final-names" id="final-names"></div>
+        </div>
+    </footer>
+
+    <script src="content.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
