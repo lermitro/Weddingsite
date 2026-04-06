@@ -1,0 +1,73 @@
+/**
+ * EDIT ALL TEXTS AND LINKS HERE
+ */
+const CONFIG = {
+    weddingDate: "2026-07-10T17:00:00", // Format: YYYY-MM-DDTHH:MM:SS
+    
+    hero: {
+        names: "Лера & Сергей",
+        date: "10.07.2026",
+        image: "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1000" // Replace with real photo URL
+    },
+
+    timeline: {
+        title: "Тайминг",
+        events: [
+            {
+                time: "17:00",
+                title: "Роспись",
+                desc: "Просьба приехать за 15–20 минут для сбора гостей.",
+                location: "ЗАГС №2 на Фурштатской",
+                mapLink: "https://yandex.ru/maps/-/CCUfE2b9" 
+            },
+            {
+                time: "18:30",
+                title: "Ресторан",
+                desc: "Ужин и танцы до упаду.",
+                location: "Марсала, Петроградка",
+                mapLink: "https://yandex.ru/maps/-/CCUfE2b9"
+            }
+        ]
+    },
+
+    dressCode: {
+        title: "Дресс-код",
+        description: "Мы будем очень признательны, если вы поддержите цветовую гамму нашей свадьбы в своих нарядах:",
+        colors: [
+            { hex: "#5D4037", name: "Коричневый" },
+            { hex: "#1A1A1A", name: "Черный" },
+            { hex: "#BD4F1F", name: "Оранжевый" },
+            { hex: "#F5F2ED", name: "Молочный" }
+        ]
+    },
+
+    details: {
+        title: "Детали",
+        blocks: [
+            {
+                title: "Второй день",
+                text: "Планируем выезд за город. Все подробности и локацию мы сообщим чуть позже лично."
+            },
+            {
+                title: "Подарки",
+                text: "Будем благодарны за вклад в бюджет нашего будущего путешествия в конверте."
+            },
+            {
+                title: "Сюрпризы",
+                text: "Если вы хотите подготовить творческий подарок — свяжитесь с нашим ведущим: Артем (+7 900 000-00-00)"
+            }
+        ]
+    },
+
+    rsvp: {
+        title: "Анкета гостя",
+        drinks: ["Вино", "Коктейли", "Крепкое", "Не пью"],
+        // IMPORTANT: Replace with your Google Apps Script Webhook URL
+        webhookUrl: "https://script.google.com/macros/s/YOUR_ID/exec"
+    },
+
+    footer: {
+        text: "Будем рады видеть вас!",
+        names: "L & S"
+    }
+};
