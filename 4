@@ -1,0 +1,149 @@
+document.addEventListener('DOMContentLoaded', () => {
+    initContent();
+    initTimer();
+    initAnimations();
+    handleRSVP();
+});
+
+// 1. Inject content from content.js
+function initContent() {
+    // Hero
+    document.getElementById('nav-names').textContent = CONFIG.footer.names;
+    document.getElementById('hero-img').src = CONFIG.hero.image;
+    document.getElementById('hero-title').textContent = CONFIG.hero.names;
+    document.getElementById('hero-date').textContent = CONFIG.hero.date;
+
+    // Timeline
+    document.getElementById('timeline-title').textContent = CONFIG.timeline.title;
+    const timelineContainer = document.getElementById('timeline-content');
+    CONFIG.timeline.events.forEach(event => {
+        timelineContainer.innerHTML += `
+            <div class="timeline-item reveal">
+                <div class="tm-time">${event.time}</div>
+                <div class="tm-info">
+                    <h3>${event.title}</h3>
+                    <p>${event.desc}</p>
+                    <small>${event.location}</small>
+                </div>
+                <a href="${event.mapLink}" target="_blank" class="btn-map">Карта</a>
+            </div>
+        `;
+    });
+
+    // Dress Code
+    document.getElementById('dresscode-title').textContent = CONFIG.dressCode.title;
+    document.getElementById('dresscode-desc').textContent = CONFIG.dressCode.description;
+    const colorContainer = document.getElementById('dresscode-colors');
+    CONFIG.dressCode.colors.forEach(color => {
+        colorContainer.innerHTML += `
+            <div class="color-circle" style="background-color: ${color.hex}" title="${color.name}"></div>
+        `;
+    });
+
+    // Details
+    document.getElementById('details-title').textContent = CONFIG.details.title;
+    const detailsGrid = document.getElementById('details-grid');
+    CONFIG.details.blocks.forEach(block => {
+        detailsGrid.innerHTML += `
+            <div class="detail-block reveal">
+                <h3>${block.title}</h3>
+                <p>${block.text}</p>
+            </div>
+        `;
+    });
+
+    // RSVP Options
+    document.getElementById('rsvp-title').textContent = CONFIG.rsvp.title;
+    const drinksContainer = document.getElementById('drinks-options');
+    CONFIG.rsvp.drinks.forEach(drink => {
+        drinksContainer.innerHTML += `
+            <label class="radio-btn">
+                <input type="checkbox" name="drinks" value="${drink}">
+                <span>${drink}</span>
+            </label>
+        `;
+    });
+
+    // Footer
+    document.getElementById('final-text').textContent = CONFIG.footer.text;
+    document.getElementById('final-names').textContent = CONFIG.footer.names;
+}
+
+// 2. Countdown Timer
+function initTimer() {
+    const target = new Date(CONFIG.weddingDate).getTime();
+
+    const updateTimer = () => {
+        const now = new Date().getTime();
+        const diff = target - now;
+
+        if (diff < 0) return;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+        document.getElementById('days').innerText = d.toString().padStart(2, '0');
+        document.getElementById('hours').innerText = h.toString().padStart(2, '0');
+        document.getElementById('minutes').innerText = m.toString().padStart(2, '0');
+    };
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+}
+
+// 3. Scroll Animations
+function initAnimations() {
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}
+
+// 4. RSVP Form Handling
+function handleRSVP() {
+    const form = document.getElementById('rsvp-form');
+    const successMsg = document.getElementById('form-success');
+    const submitBtn = document.getElementById('submit-btn');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Отправка...";
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+        
+        // Handle multiple checkboxes for drinks
+        data.drinks = Array.from(formData.getAll('drinks')).join(', ');
+
+        try {
+            // Using fetch to send data to Google Sheets Webhook
+            // In a real scenario, the URL comes from CONFIG.rsvp.webhookUrl
+            const response = await fetch(CONFIG.rsvp.webhookUrl, {
+                method: 'POST',
+                mode: 'no-cors', // Common for Google Script webhooks
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+        } catch (error) {
+            console.error('Error!', error);
+            alert('Произошла ошибка. Пожалуйста, попробуйте еще раз или напишите нам лично.');
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Отправить ответ";
+        }
+    });
+}
